@@ -20,7 +20,6 @@ const CATALOG = {
   cards:       { name: "Mystery Trading Cards", price: 600, variants: { pretty: "Pretty pack · 5 random cards", killer: "Killer pack · 5 random cards" } },
   poster:      { name: "Tour Poster", price: 500, variants: { pretty: "Pretty poster · 8.5×11 in", killer: "Killer poster · 8.5×11 in" } },
   hat:         { name: "Bucket Hat", price: 3000, variants: { pretty: "Pretty hat", killer: "Killer hat" } },
-  clips:       { name: "Hair Clip Set", price: 1200, variants: { pretty: "Bow clips", killer: "Knife clips" } },
   digital:     { name: "Digital Album", price: 1000, digital: true, variants: { pretty: "Pretty ver. · download", killer: "Killer ver. · download" } },
   movie:       { name: "Pretty Killer: The Movie", price: 1500 }
 };
