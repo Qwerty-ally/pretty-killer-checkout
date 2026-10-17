@@ -10,13 +10,13 @@ const STRIPE_KEY = (process.env.STRIPE_SECRET_KEY || "").trim();   // trim: a pa
 
 // price in cents; variants = Pretty / Killer versions (shared items have one version)
 const CATALOG = {
-  finnschoice: { name: "Finn's Choice", price: 10100, variants: { pretty: "With the Pretty ver. CD", killer: "With the Killer ver. CD" } },
+  finnschoice: { name: "Finn's Choice", price: 10500, variants: { pretty: "With the Pretty ver. CD", killer: "With the Killer ver. CD" } },
   book:        { name: "Pretty Killer Tour Book (Hardcover)", price: 4500 },
   kpopcd:      { name: "K-pop Style CD", price: 3500, variants: { pretty: "Pretty ver.", killer: "Killer ver." } },
   cd:          { name: "Standard CD", price: 2200, variants: { pretty: "Pretty cover", killer: "Killer cover" } },
   keychain:    { name: "Mini CD Keychain", price: 1500, variants: { pretty: "Pretty ver.", killer: "Killer ver." } },
   stickers:    { name: "Sticker Pack", price: 800, variants: { pretty: "Pretty pack", killer: "Killer pack" } },
-  cards:       { name: "Mystery Trading Cards", price: 600, variants: { pretty: "Pretty pack · 5 random cards", killer: "Killer pack · 5 random cards" } },
+  cards:       { name: "Mystery Trading Cards", price: 1000, variants: { pretty: "Pretty pack · 5 random cards", killer: "Killer pack · 5 random cards" } },
   poster:      { name: "Tour Poster", price: 500, variants: { pretty: "Pretty poster · 8.5×11 in", killer: "Killer poster · 8.5×11 in" } },
   hat:         { name: "Reversible Bucket Hat (Killer outside, Pretty reverse side)", price: 3000 },
   digital:     { name: "Digital Album", price: 1000, digital: true, variants: { pretty: "Pretty ver. · download", killer: "Killer ver. · download" } },
