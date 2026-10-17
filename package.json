@@ -1,0 +1,6 @@
+{
+  "name": "pretty-killer-checkout",
+  "private": true,
+  "description": "Stripe Checkout server for the Pretty Killer shop",
+  "engines": { "node": ">=18" }
+}
