@@ -21,7 +21,8 @@ const CATALOG = {
   poster:      { name: "Tour Poster", price: 500, variants: { pretty: "Pretty poster · 8.5×11 in", killer: "Killer poster · 8.5×11 in" } },
   hat:         { name: "Bucket Hat", price: 3000, variants: { pretty: "Pretty hat", killer: "Killer hat" } },
   digital:     { name: "Digital Album", price: 1000, digital: true, variants: { pretty: "Pretty ver. · download", killer: "Killer ver. · download" } },
-  movie:       { name: "Pretty Killer: The Movie", price: 1500 }
+  movie:       { name: "Pretty Killer: The Movie", price: 1500 },
+  test:        { name: "Test Item", price: 100, digital: true }   // hidden $1 item for testing real checkout
 };
 
 function cors(req, res){
