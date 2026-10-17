@@ -12,14 +12,13 @@ const STRIPE_KEY = (process.env.STRIPE_SECRET_KEY || "").trim();   // trim: a pa
 const CATALOG = {
   finnschoice: { name: "Finn's Choice", price: 10100, variants: { pretty: "With the Pretty ver. CD", killer: "With the Killer ver. CD" } },
   book:        { name: "Pretty Killer Tour Book (Hardcover)", price: 4500 },
-  bookpb:      { name: "Pretty Killer Tour Book (Paperback)", price: 3700 },
   kpopcd:      { name: "K-pop Style CD", price: 3500, variants: { pretty: "Pretty ver.", killer: "Killer ver." } },
   cd:          { name: "Standard CD", price: 2200, variants: { pretty: "Pretty cover", killer: "Killer cover" } },
   keychain:    { name: "Mini CD Keychain", price: 1500, variants: { pretty: "Pretty ver.", killer: "Killer ver." } },
   stickers:    { name: "Sticker Pack", price: 800, variants: { pretty: "Pretty pack", killer: "Killer pack" } },
   cards:       { name: "Mystery Trading Cards", price: 600, variants: { pretty: "Pretty pack · 5 random cards", killer: "Killer pack · 5 random cards" } },
   poster:      { name: "Tour Poster", price: 500, variants: { pretty: "Pretty poster · 8.5×11 in", killer: "Killer poster · 8.5×11 in" } },
-  hat:         { name: "Bucket Hat", price: 3000, variants: { pretty: "Pretty hat", killer: "Killer hat" } },
+  hat:         { name: "Reversible Bucket Hat (Killer outside, Pretty reverse side)", price: 3000 },
   digital:     { name: "Digital Album", price: 1000, digital: true, variants: { pretty: "Pretty ver. · download", killer: "Killer ver. · download" } },
   movie:       { name: "Pretty Killer: The Movie", price: 1500 },
   test:        { name: "Test Item", price: 100, digital: true }   // hidden $1 item for testing real checkout
