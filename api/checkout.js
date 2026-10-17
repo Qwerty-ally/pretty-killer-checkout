@@ -6,6 +6,7 @@
 const SHOP_URL = process.env.SHOP_URL || "https://qwerty-ally.github.io/pretty-killer-shop/";
 const ALLOWED_ORIGINS = ["https://qwerty-ally.github.io", "http://localhost:8080", "http://127.0.0.1:8080"];
 const MAX_QTY = 20;
+const STRIPE_KEY = (process.env.STRIPE_SECRET_KEY || "").trim();   // trim: a pasted key can pick up a stray newline
 
 // price in cents; variants = Pretty / Killer versions (shared items have one version)
 const CATALOG = {
@@ -36,7 +37,7 @@ module.exports = async (req, res) => {
   cors(req, res);
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST." });
-  if (!process.env.STRIPE_SECRET_KEY) return res.status(500).json({ error: "Checkout isn't set up yet." });
+  if (!STRIPE_KEY) return res.status(500).json({ error: "Checkout isn't set up yet." });
 
   const items = req.body && Array.isArray(req.body.items) ? req.body.items : [];
   const form = new URLSearchParams();
@@ -75,14 +76,14 @@ module.exports = async (req, res) => {
   try {
     const r = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",
-      headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`, "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { Authorization: `Bearer ${STRIPE_KEY}`, "Content-Type": "application/x-www-form-urlencoded" },
       body: form
     });
     const data = await r.json();
     if (!r.ok){ console.error("Stripe error:", data.error && data.error.message); return res.status(502).json({ error: "Stripe couldn't start checkout. Try again." }); }
     return res.status(200).json({ url: data.url });
   } catch(e){
-    console.error(e);
+    console.error("Checkout failed:", e && e.message);
     return res.status(502).json({ error: "Couldn't reach Stripe. Try again." });
   }
 };
