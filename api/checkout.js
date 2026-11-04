@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 
   for (const it of items.slice(0, 40)){
     const p = CATALOG[it && it.id];
-    if (!p) return res.status(400).json({ error: "Something in your bag isn't for sale online." });
+    if (!p || p.inPerson) return res.status(400).json({ error: "Something in your bag isn't for sale online." });
     // secret code: one free Movie per order, not charged
     if (it.free){ if (it.id === "movie") freeMovie = true; continue; }
     const qty = Math.floor(Number(it.qty));
