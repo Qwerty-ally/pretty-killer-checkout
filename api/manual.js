@@ -3,7 +3,7 @@
 // (paid_out_of_band): nobody is
 // charged or emailed, and it shows in the Stripe dashboard too. All calls need X-Admin-Key.
 //   GET    /api/manual              -> { items }: what can be sold (from CATALOG), for the admin form
-//   POST   /api/manual              { name, method, note, items: [{ id, side, qty } or { custom, name, price (cents), qty }] }
+//   POST   /api/manual              { name, method, note, items: [{ id, side, qty, price? (cents, for a discount) } or { custom, name, price (cents), qty }] }
 //   DELETE /api/manual?id=in_...    -> hides that sale from the admin list (paid invoices can't be deleted)
 
 const crypto = require("crypto");
@@ -62,7 +62,14 @@ module.exports = async (req, res) => {
       if (!p.variants[it.side]) return res.status(400).json({ error: `Pick the Pretty or Killer version of ${p.name}.` });
       label += ` (${p.variants[it.side]})`;
     }
-    lines.push({ label, price: p.price, qty });
+    // a different price each (a discount) is allowed; the list shows what it normally costs
+    let price = p.price;
+    if (it.price !== undefined && it.price !== null && it.price !== ""){
+      price = Math.round(Number(it.price));
+      if (!(price >= 0 && price <= 100000)) return res.status(400).json({ error: `Check the price of ${p.name}.` });
+      if (price !== p.price) label += ` · $${(price / 100).toFixed(2)} each (was $${(p.price / 100).toFixed(2)})`;
+    }
+    lines.push({ label, price, qty });
   }
   if (!lines.length) return res.status(400).json({ error: "Add at least one item." });
 
