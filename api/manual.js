@@ -1,5 +1,6 @@
 // In-person sales the admin types in, so they show on admin.html next to the online orders.
-// Each one is a Stripe invoice marked "paid outside of Stripe" (paid_out_of_band): nobody is
+// Each one is a Stripe invoice (never auto-charged: auto_advance off) marked "paid outside of Stripe"
+// (paid_out_of_band): nobody is
 // charged or emailed, and it shows in the Stripe dashboard too. All calls need X-Admin-Key.
 //   GET    /api/manual              -> { items }: what can be sold (from CATALOG), for the admin form
 //   POST   /api/manual              { name, method, note, items: [{ id, side, qty } or { custom, name, price (cents), qty }] }
@@ -76,7 +77,7 @@ module.exports = async (req, res) => {
       }));
     }
     const meta = { source: SOURCE, manual: "yes", order, name, method, items: itemsText, ...(note ? { note } : {}) };
-    const form = new URLSearchParams({ customer: customer.id, collection_method: "send_invoice", days_until_due: "1",
+    const form = new URLSearchParams({ customer: customer.id, collection_method: "charge_automatically", auto_advance: "false",
       pending_invoice_items_behavior: "include", description: `In-person sale ${order} · ${name} · ${method}` });
     Object.entries(meta).forEach(([k, v]) => form.append(`metadata[${k}]`, v));
     let inv = await stripe("invoices", form);
